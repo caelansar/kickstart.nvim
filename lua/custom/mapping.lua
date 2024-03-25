@@ -29,3 +29,5 @@ end
 
 -- vim.keymap.set('n', ',m', "<cmd> lua require ('window-picker').pick_window()<cr>", { desc = 'Pick window', remap = false })
 vim.keymap.set('n', '<leader>.', '<cmd>lua pick()<cr>', { desc = 'Pick a window' })
+
+vim.keymap.set('i', 'jk', '<Esc>')

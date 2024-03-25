@@ -161,8 +161,6 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
-vim.keymap.set('i', 'jk', '<Esc>')
-
 vim.opt.tabstop = 4 -- Always 8 (see :h tabstop)
 vim.opt.softtabstop = 2 -- What you expecting
 vim.opt.shiftwidth = 2 -- What you expecting
