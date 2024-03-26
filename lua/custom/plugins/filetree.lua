@@ -46,6 +46,7 @@ return {
           ['l'] = 'open',
           ['O'] = 'system_open',
           ['h'] = 'close_node',
+          ['E'] = 'open_leftabove_vs',
         },
       },
       commands = {
