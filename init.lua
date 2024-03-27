@@ -478,9 +478,6 @@ require('lazy').setup({
       -- used for completion, annotations and signatures of Neovim apis
       { 'folke/neodev.nvim', opts = {} },
     },
-    opts = {
-      inlay_hints = { enabled = true },
-    },
     config = function()
       -- Brief aside: **What is LSP?**
       --
