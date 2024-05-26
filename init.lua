@@ -434,10 +434,10 @@ require('lazy').setup({
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
@@ -573,6 +573,11 @@ require('lazy').setup({
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
+          local bufnr = event.buf
+          if client and client.supports_method('textDocument/inlayHint', { bufnr = bufnr }) then
+            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+          end
+
           if client and client.server_capabilities.documentHighlightProvider then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -636,15 +641,18 @@ require('lazy').setup({
               },
             },
           },
-          on_attach = function(client, bufnr)
-            vim.lsp.inlay_hint.enable(bufnr, true)
-          end,
         },
         -- pyright = {},
         rust_analyzer = {
-          on_attach = function(client, bufnr)
-            vim.lsp.inlay_hint.enable(bufnr, true)
-          end,
+          checkOnSave = {
+            command = 'clippy',
+          },
+          diagnostics = {
+            enable = true,
+            experimental = {
+              enable = true,
+            },
+          },
         },
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -659,9 +667,6 @@ require('lazy').setup({
           -- cmd = {...},
           -- filetypes = { ...},
           -- capabilities = {},
-          on_attach = function(client, bufnr)
-            vim.lsp.inlay_hint.enable(bufnr, true)
-          end,
           settings = {
             Lua = {
               hint = {

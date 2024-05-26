@@ -75,6 +75,11 @@ return {
           end
         end,
       },
+      filesystem = {
+        follow_current_file = {
+          enabled = true,
+        },
+      },
     }
   end,
 }
