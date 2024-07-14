@@ -888,6 +888,7 @@ require('lazy').setup({
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
       vim.cmd.hi 'LspReferenceRead cterm=bold ctermbg=lightmagenta guibg=#916e80'
+      vim.cmd.hi 'LspReferenceText cterm=bold ctermbg=lightmagenta guibg=#916e80'
     end,
   },
 
