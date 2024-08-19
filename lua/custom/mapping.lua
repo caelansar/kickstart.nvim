@@ -13,7 +13,7 @@ function _lazygit_toggle()
   lazygit:toggle()
 end
 
-vim.api.nvim_set_keymap('n', '<leader>tg', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true, desc = '[t]oggle lazy[g]it' })
+vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true, desc = 'open lazy[g]it' })
 
 -- Move to window using the <opt> hjkl keys
 vim.keymap.set('n', '<M-h>', '<C-w>h', { desc = 'Go to left window', remap = true })
